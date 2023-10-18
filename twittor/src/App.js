@@ -1,26 +1,9 @@
-import React, { useEffect, useState } from "react";
-import "./App.scss";
+import React from "react";
 
-function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {}, []);
-
+export default function App() {
   return (
-    <div className="App">
-      <div className="App-header">
-        <h1>HEY DUDE!</h1>
-        <h3> Clickeaste {count} veces </h3>
-        <button
-          onClick={() => {
-            setCount(count + 1);
-          }}
-        >
-          Apretá ACÁ!
-        </button>
-      </div>
+    <div>
+      <h1>App! </h1>
     </div>
   );
 }
-
-export default App;
