@@ -39,6 +39,28 @@
 
 }
 
+&__right {
+    display: flex;
+    align-items: center;
+
+
+    div {
+        width: 500px;
+        margin: 0 auto;
+
+
+     img {
+        width: 100px;
+        margin-bottom: 20px;
+     }
+
+     h2 {
+        font-weight: bold;
+     }
+
+    }
+}
+
 }
 
 

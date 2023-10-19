@@ -46,7 +46,11 @@ function LeftComponent() {
 function RightComponent() {
   return (
     <Col className="signin-signup__right" xs={6}>
-      <h2> RightComponent... </h2>
+      <div>
+        <img src={LogoWhiteTwittor} alt="twittorwhite"></img>
+        <h2> Mira lo que está pasando en el mundo en este momento</h2>
+        <h3> únete a twittor hoy mismo! </h3>
+      </div>
     </Col>
   );
 }
