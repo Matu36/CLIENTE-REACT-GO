@@ -42,11 +42,12 @@
 &__right {
     display: flex;
     align-items: center;
+    
 
-
-    div {
+    > div {
         width: 500px;
         margin: 0 auto;
+        
 
 
      img {
@@ -56,8 +57,30 @@
 
      h2 {
         font-weight: bold;
+        font-size: 40px;
+        margin-bottom: 70px;
      }
 
+     h3 {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 30px;
+     }
+
+     
+     button {
+
+        display: block;
+        width: 100%;
+        border-radius: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px 0;
+
+        &:first-of-type {
+            margin-bottom: 20px;
+        }
+     }
     }
 }
 

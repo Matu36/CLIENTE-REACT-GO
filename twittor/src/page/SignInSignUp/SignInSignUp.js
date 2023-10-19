@@ -6,6 +6,7 @@ import {
   faUsers,
   faComment,
 } from "@fortawesome/free-solid-svg-icons";
+import BasicModal from "../../components/modal/BasicModal/BasicModal";
 import LogoWhiteTwittor from "../../assets/png/logo-white.png";
 import LogoTwittor from "../../assets/png/logo.png";
 import "../SignInSignUp/SignInSignUp.scss";
@@ -36,7 +37,7 @@ function LeftComponent() {
           Entérate de qué está hablando la gente
         </h2>
         <h2>
-          <FontAwesomeIcon icon={faComment} /> únete a la conversación
+          <FontAwesomeIcon icon={faComment} /> Únete a la conversación
         </h2>
       </div>
     </Col>
@@ -49,7 +50,9 @@ function RightComponent() {
       <div>
         <img src={LogoWhiteTwittor} alt="twittorwhite"></img>
         <h2> Mira lo que está pasando en el mundo en este momento</h2>
-        <h3> únete a twittor hoy mismo! </h3>
+        <h3> Únete a twittor hoy mismo! </h3>
+        <Button variant="primary">Regístrate</Button>
+        <Button variant="outline-primary">Iniciar Sesión</Button>
       </div>
     </Col>
   );

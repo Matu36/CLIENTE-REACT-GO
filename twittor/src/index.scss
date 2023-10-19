@@ -15,3 +15,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn {
+  box-shadow: none !important;
+}
+
+.btn.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+  &:hover {
+    background-color: rgba(26, 145, 218, 1)
+  }
+}
+
+.btn.btn-outline-primary {
+  border-color: $border-primary;
+  color:$primary;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: rgba(29, 261, 241, 0.1) !important;
+  }
+}
