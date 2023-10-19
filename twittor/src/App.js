@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import SignInSignUp from "./page/SignInSignUp";
 
 export default function App() {
+  const [user, setUser] = useState({
+    nombre: "Matías Pineda",
+  });
+
   return (
     <div>
-      <h1>App! </h1>
+      <div>{user ? <SignInSignUp /> : <h1>No estas Logueado!</h1>}</div>
     </div>
   );
 }
