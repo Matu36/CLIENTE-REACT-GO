@@ -12,21 +12,24 @@ import LogoTwittor from "../../assets/png/logo.png";
 import "../SignInSignUp/SignInSignUp.scss";
 
 export default function SignInSignUp() {
-  const [showModal, setshowModal] = useState(true);
+  const [showModal, setshowModal] = useState(false);
   const [contentModal, setcontentModal] = useState(null);
+
+  const openModal = (content) => {
+    setshowModal(true);
+    setcontentModal(content);
+  };
 
   return (
     <>
       <Container className="signin-signup" fluid>
         <Row>
           <LeftComponent />
-          <RightComponent />
+          <RightComponent openModal={openModal} setshowModal={setshowModal} />
         </Row>
       </Container>
-      <BasicModal show={showModal} setshow={setshowModal}>
-        <div>
-          <h2> Modal Content </h2>
-        </div>
+      <BasicModal show={showModal} setShow={setshowModal}>
+        {contentModal}
       </BasicModal>
     </>
   );
@@ -54,15 +57,27 @@ function LeftComponent() {
   );
 }
 
-function RightComponent() {
+function RightComponent(props) {
+  const { openModal, setshowModal } = props;
+
   return (
     <Col className="signin-signup__right" xs={6}>
       <div>
         <img src={LogoWhiteTwittor} alt="twittorwhite"></img>
         <h2> Mira lo que está pasando en el mundo en este momento</h2>
         <h3> Únete a twittor hoy mismo! </h3>
-        <Button variant="primary">Regístrate</Button>
-        <Button variant="outline-primary">Iniciar Sesión</Button>
+        <Button
+          variant="primary"
+          onClick={() => openModal(<h2>Formulario de Registro </h2>)}
+        >
+          Regístrate
+        </Button>
+        <Button
+          variant="outline-primary"
+          onClick={() => openModal(<h2>Formulario de Login </h2>)}
+        >
+          Iniciar Sesión
+        </Button>
       </div>
     </Col>
   );
