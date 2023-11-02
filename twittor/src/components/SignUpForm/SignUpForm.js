@@ -24,8 +24,12 @@ export default function SignUpForm(props) {
     } else {
       if (!isEmailValid(formData.email)) {
         toast.warning("Email inválido");
+      } else if (formData.password !== formData.repeatPassword) {
+        toast.warning("Las contraseñas tienen que ser iguales");
+      } else if (size(formData.password) < 6) {
+        toast.warning("La contraseña tiene que tener al menos 6 carácteres");
       } else {
-        toast.success("Form Ok.");
+        toast.success("Form OK.");
       }
     }
   };
