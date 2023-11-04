@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SignInSignUp from "./page/SignInSignUp";
 import { ToastContainer } from "react-toastify";
+import { AuthContext } from "./utils/contexts";
+import { isUserLogedApi } from "./api/auth";
 
 export default function App() {
-  const [user, setUser] = useState({
-    nombre: "Matías Pineda",
-  });
+  const [user, setUser] = useState(null);
+  const [loadUser, setLoadUser] = useState(false);
+  const [refrescCheckLogin, setRefreshCheckLogin] = useState(false);
+
+  useEffect(() => {
+    setUser(isUserLogedApi());
+    setRefreshCheckLogin(false);
+    setLoadUser(true);
+  }, [refrescCheckLogin]);
+
+  if (!loadUser) return null;
 
   return (
-    <div>
+    <AuthContext.Provider value={user}>
       {user ? (
-        <div>
-          <SignInSignUp />
-        </div>
+        <h1>Estas Logueado! </h1>
       ) : (
-        <h1>No estas Logueado!</h1>
+        <SignInSignUp setRefreschCheckLogin={setRefreshCheckLogin} />
       )}
       <ToastContainer
         position="top-right"
@@ -27,6 +35,6 @@ export default function App() {
         pauseOnHover
         pauseOnFocusLoss
       />
-    </div>
+    </AuthContext.Provider>
   );
 }

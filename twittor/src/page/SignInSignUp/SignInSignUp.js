@@ -13,7 +13,8 @@ import LogoWhiteTwittor from "../../assets/png/logo-white.png";
 import LogoTwittor from "../../assets/png/logo.png";
 import "../SignInSignUp/SignInSignUp.scss";
 
-export default function SignInSignUp() {
+export default function SignInSignUp(props) {
+  const { setRefreshCheckLogin } = props;
   const [showModal, setshowModal] = useState(false);
   const [contentModal, setcontentModal] = useState(null);
 
@@ -27,7 +28,11 @@ export default function SignInSignUp() {
       <Container className="signin-signup" fluid>
         <Row>
           <LeftComponent />
-          <RightComponent openModal={openModal} setshowModal={setshowModal} />
+          <RightComponent
+            openModal={openModal}
+            setshowModal={setshowModal}
+            setRefreshCheckLogin={setRefreshCheckLogin}
+          />
         </Row>
       </Container>
       <BasicModal show={showModal} setShow={setshowModal}>
@@ -60,7 +65,7 @@ function LeftComponent() {
 }
 
 function RightComponent(props) {
-  const { openModal, setshowModal } = props;
+  const { openModal, setshowModal, setRefreshCheckLogin } = props;
 
   return (
     <Col className="signin-signup__right" xs={6}>
@@ -76,7 +81,11 @@ function RightComponent(props) {
         </Button>
         <Button
           variant="outline-primary"
-          onClick={() => openModal(<SignInForm />)}
+          onClick={() =>
+            openModal(
+              <SignInForm setRefreshCheckLogin={setRefreshCheckLogin} />
+            )
+          }
         >
           Iniciar Sesión
         </Button>
