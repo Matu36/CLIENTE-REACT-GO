@@ -46,10 +46,13 @@ textarea.form-control {
   border-bottom: 1px solid $border-grey;
   color: $font-light !important;
 
-
-&:focus {
-  background-color: $background-dark-light;
-  box-shadow: none;
-  border-bottom: 1px solid  $border-primary;
+  &:focus {
+    background-color: $background-dark-light;
+    box-shadow: none;
+    border-bottom: 1px solid $border-primary;
+  }
 }
+
+textarea.form-control::placeholder {
+  color: $font-light !important;
 }

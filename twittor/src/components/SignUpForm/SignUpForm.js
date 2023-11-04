@@ -3,12 +3,14 @@ import { Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import { values, size } from "lodash"; // -->  SIRVE PARA VALIDAR. //
 import { toast } from "react-toastify";
 import { isEmailValid } from "../../utils/validations";
+import { signUpApi } from "../../api/auth";
 
 import "./SignUpForm.scss";
 
 export default function SignUpForm(props) {
   const { setshowModal } = props;
   const [formData, setformData] = useState(initialFormValue());
+  const [signUpLoading, setsignUpLoading] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +31,23 @@ export default function SignUpForm(props) {
       } else if (size(formData.password) < 6) {
         toast.warning("La contraseña tiene que tener al menos 6 carácteres");
       } else {
-        toast.success("Form OK.");
+        setsignUpLoading(true);
+        signUpApi(formData)
+          .then((response) => {
+            if (response.message) {
+              toast.warning(response.message);
+            } else {
+              toast.success("El registro ha sido correcto");
+              setshowModal(false);
+              setformData(initialFormValue);
+            }
+          })
+          .catch(() => {
+            toast.error("Error en el servidor, inténtelo más tarde");
+          })
+          .finally(() => {
+            setsignUpLoading(false);
+          });
       }
     }
   };
@@ -45,7 +63,7 @@ export default function SignUpForm(props) {
   return (
     <div className="sign-up-form">
       <h2>Crea tu cuenta</h2>
-      <form onSubmit={onSubmit} onChange={onChange}>
+      <Form onSubmit={onSubmit} onChange={onChange}>
         <Form.Group className="mb-3">
           <Row>
             <Col>
@@ -96,9 +114,9 @@ export default function SignUpForm(props) {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Registrarse
+          {!signUpLoading ? "Registrarse" : <Spinner animation="border" />}
         </Button>
-      </form>
+      </Form>
     </div>
   );
 }
