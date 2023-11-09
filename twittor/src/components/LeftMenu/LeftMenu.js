@@ -23,8 +23,6 @@ export default function LeftMenu(props) {
     setRefreshCheckLogin(true);
   };
 
-  console.log(props);
-
   return (
     <div className="left-menu">
       <img className="logo" src={LogoWhite} alt="twittor" />
