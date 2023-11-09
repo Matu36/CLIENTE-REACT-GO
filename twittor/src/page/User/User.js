@@ -1,10 +1,15 @@
 import React from "react";
 import { Button, Spinner } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import BasicLayout from "../../layout/BasicLayout";
 
 import "./User.scss";
 
-export default function User() {
+function User(props) {
+  const { match } = props;
+
+  console.log(match.params.id);
+
   return (
     <BasicLayout className="user">
       <div className="user__title">
@@ -17,3 +22,5 @@ export default function User() {
     </BasicLayout>
   );
 }
+
+export default withRouter(User);
