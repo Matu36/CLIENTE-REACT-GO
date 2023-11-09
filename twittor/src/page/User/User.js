@@ -1,11 +1,19 @@
 import React from "react";
+import { Button, Spinner } from "react-bootstrap";
+import BasicLayout from "../../layout/BasicLayout";
 
 import "./User.scss";
 
 export default function User() {
   return (
-    <div>
-      <h2> User </h2>
-    </div>
+    <BasicLayout className="user">
+      <div className="user__title">
+        <h2>Matías Pineda</h2>
+      </div>
+
+      <div>Banner Usuario</div>
+      <div>Info Usuario</div>
+      <div className="user__tweets">Lista de Tweets</div>
+    </BasicLayout>
   );
 }
