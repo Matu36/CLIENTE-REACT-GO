@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import ConfigModal from "../../modal/BasicModal/ConfigModal/ConfigModal";
+import EditUserForm from "../EditUserForm/EditUserForm";
 import { API_HOST } from "../../../utils/constant";
 import AvatarNoFound from "../../../assets/png/avatar-no-found.png";
-import ConfigModal from "../../modal/BasicModal/ConfigModal/ConfigModal";
 
 import "./BannerAvatar.scss";
 
@@ -43,7 +44,7 @@ export default function BannerAvatar(props) {
         setShow={setShowModal}
         title="Editar perfil"
       >
-        Formulario de Edición
+        <EditUserForm user={user} setShowModal={setShowModal} />
       </ConfigModal>
     </div>
   );
