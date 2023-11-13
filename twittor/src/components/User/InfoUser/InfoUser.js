@@ -28,11 +28,15 @@ export default function InfoUser(props) {
             target="_blanck"
             rel="noopener noreferrer"
           >
-            <Link /> {user.sitioWeb}
+            <Link />
+
+            {/* {user.sitioWeb} */}
           </a>
         )}
         {/* El Link de abajo sacarlo ! */}
-        <Link /> {user.sitioWeb}
+        <Link />
+
+        {/* {user.sitioWeb} */}
         {user?.fechaNacimiento && (
           <p>
             <DataBirth />
