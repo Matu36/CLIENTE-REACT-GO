@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
+
+import "react-datepicker/dist/react-datepicker.css";
+import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.scss";
+
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

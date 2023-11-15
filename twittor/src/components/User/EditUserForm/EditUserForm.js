@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import es from "date-fns/locale/es";
 
 import "./EditUserForm.scss";
 
@@ -37,6 +39,14 @@ export default function EditUserForm() {
         </Form.Group>
         <Form.Group>
           <Form.Control type="text" placeholder="Sitio Web" name="sitioWeb" />
+        </Form.Group>
+
+        <Form.Group>
+          <DatePicker
+            placeholderText="Fecha de Nacimiento"
+            locale={es}
+            selected={new Date()}
+          />
         </Form.Group>
 
         <Button className="btn-submit" variant="primary" type="submit">
