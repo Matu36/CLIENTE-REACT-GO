@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import es from "date-fns/locale/es";
 import { useDropzone } from "react-dropzone";
 import { API_HOST } from "../../../utils/constant";
+import { Camera } from "../../../utils/icons";
 
 import "./EditUserForm.scss";
 
@@ -13,9 +14,16 @@ export default function EditUserForm(props) {
   const [bannerUrl, setBannerUrl] = useState(
     user?.banner ? `${API_HOST}/obtenerBanner?id=${user.id}` : null
   );
+  const [bannerFile, setBannerFile] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(
+    user?.avatar ? `${API_HOST}/obtenerAvatar?id=${user.id}` : null
+  );
+  const [avatarFile, setAvatarFile] = useState(null);
 
   const onDropBanner = useCallback((acceptedFile) => {
-    console.log(acceptedFile);
+    const file = acceptedFile[0];
+    setBannerUrl(URL.createObjectURL(file));
+    setBannerFile(file);
   });
 
   const {
@@ -28,14 +36,28 @@ export default function EditUserForm(props) {
     onDrop: onDropBanner,
   });
 
+  const onDropAvatar = useCallback((acceptedFile) => {
+    const file = acceptedFile[0];
+    setAvatarUrl(URL.createObjectURL(file));
+    setAvatarFile(file);
+  });
+
+  const {
+    getRootProps: getRootAvatarProps,
+    getInputProps: getInputAvatarProps,
+  } = useDropzone({
+    accept: "image/jpeg, image/png",
+    noKeyboard: true,
+    multiple: false,
+    onDrop: onDropAvatar,
+  });
+
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    console.log(formData);
   };
 
   return (
@@ -46,6 +68,16 @@ export default function EditUserForm(props) {
         {...getRootBannerProps()}
       >
         <input style={{ display: "none" }} {...getInputBannerProps} />
+        <Camera />
+      </div>
+
+      <div
+        className="avatar"
+        style={{ backgroundImage: `url('${avatarUrl}')` }}
+        {...getRootAvatarProps()}
+      >
+        <input style={{ display: "none" }} {...getInputAvatarProps} />
+        <Camera />
       </div>
       <Form onSubmit={onSubmit}>
         <Form.Group>
