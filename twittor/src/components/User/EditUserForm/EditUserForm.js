@@ -1,14 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import es from "date-fns/locale/es";
+import { useDropzone } from "react-dropzone";
+import { API_HOST } from "../../../utils/constant";
 
 import "./EditUserForm.scss";
 
 export default function EditUserForm(props) {
   const { user, setShowModal } = props;
-
   const [formData, setFormData] = useState(initiaValue(user));
+  const [bannerUrl, setBannerUrl] = useState(
+    user?.banner ? `${API_HOST}/obtenerBanner?id=${user.id}` : null
+  );
+
+  const onDropBanner = useCallback((acceptedFile) => {
+    console.log(acceptedFile);
+  });
+
+  const {
+    getRootProps: getRootBannerProps,
+    getInputProps: getInputBannerProps,
+  } = useDropzone({
+    accept: "image/jpeg, image/png",
+    noKeyboard: true,
+    multiple: false,
+    onDrop: onDropBanner,
+  });
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,11 +35,18 @@ export default function EditUserForm(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Editando Usuario");
+    console.log(formData);
   };
 
   return (
     <div className="edit-user-form">
+      <div
+        className="banner"
+        style={{ backgroundImage: `url('${bannerUrl}')` }}
+        {...getRootBannerProps()}
+      >
+        <input style={{ display: "none" }} {...getInputBannerProps} />
+      </div>
       <Form onSubmit={onSubmit}>
         <Form.Group>
           <Row>
@@ -70,7 +95,7 @@ export default function EditUserForm(props) {
           <DatePicker
             placeholderText="Fecha de Nacimiento"
             locale={es}
-            selected={new Date(formData.fechaNacimiento)}
+            selected={new Date(formData.fechaNacimiento || null)}
             onChange={(value) =>
               setFormData({ ...formData, fechaNacimiento: value })
             }
