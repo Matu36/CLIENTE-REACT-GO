@@ -6,7 +6,11 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { API_HOST } from "../../../utils/constant";
 import { Camera } from "../../../utils/icons";
-import { uploadBannerApi, uploadAvatarApi } from "../../../api/user";
+import {
+  uploadBannerApi,
+  uploadAvatarApi,
+  updateInfoApi,
+} from "../../../api/user";
 
 import "./EditUserForm.scss";
 
@@ -72,6 +76,14 @@ export default function EditUserForm(props) {
         toast.error("Error al subir el nuevo Avatar");
       });
     }
+
+    updateInfoApi(formData)
+      .then(() => {
+        setShowModal(false);
+      })
+      .catch(() => {
+        toast.error("Error al actualizar los datos");
+      });
   };
 
   return (
