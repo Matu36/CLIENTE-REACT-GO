@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Form, Row, Col, Toast } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import es from "date-fns/locale/es";
 import { useDropzone } from "react-dropzone";
+import { toast } from "react-toastify";
 import { API_HOST } from "../../../utils/constant";
 import { Camera } from "../../../utils/icons";
+import { uploadBannerApi } from "../../../api/user";
 
 import "./EditUserForm.scss";
 
@@ -58,6 +60,12 @@ export default function EditUserForm(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    if (bannerFile) {
+      uploadBannerApi(bannerFile).catch(() => {
+        toast.error("Error al subir el nuevo Banner");
+      });
+    }
   };
 
   return (
