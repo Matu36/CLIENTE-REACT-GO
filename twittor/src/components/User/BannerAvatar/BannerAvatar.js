@@ -4,7 +4,7 @@ import ConfigModal from "../../modal/BasicModal/ConfigModal/ConfigModal";
 import EditUserForm from "../EditUserForm/EditUserForm";
 import { API_HOST } from "../../../utils/constant";
 import AvatarNoFound from "../../../assets/png/avatar-no-found.png";
-import { checkFollowApi } from "../../../api/follow";
+import { checkFollowApi, followUserApi } from "../../../api/follow";
 
 import "./BannerAvatar.scss";
 
@@ -31,6 +31,12 @@ export default function BannerAvatar(props) {
     });
   }, [user]);
 
+  const onFollow = () => {
+    followUserApi(user.id).then(() => {
+      console.log("TODO OK");
+    });
+  };
+
   return (
     <div
       className="banner-avatar"
@@ -51,7 +57,7 @@ export default function BannerAvatar(props) {
             (following ? ( */}
           <Button>Siguiendo</Button>
           {/* ) : ( */}
-          <Button>Seguir </Button>
+          <Button onClick={onFollow}>Seguir </Button>
         </div>
       )}
 
