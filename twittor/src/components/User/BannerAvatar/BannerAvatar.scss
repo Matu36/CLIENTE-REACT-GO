@@ -9,7 +9,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: none;
-}
+
 
 .avatar {
     position:absolute;
@@ -41,7 +41,25 @@
             background-color: $primary;
         opacity: 0.6;        }
 
+        &.unfollow {
+            &:hover {
+                border-color: $danger;
+                background-color: $danger;
+
+                &::before {
+                    content: "Dejar de Seguir";
+                }
+
+             span {
+                display: none;
+             }
+
+
+            }
+        }
+
     }
 
 
+}
 }
