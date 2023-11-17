@@ -7,12 +7,14 @@ import BasicLayout from "../../layout/BasicLayout";
 import { getUserApi } from "../../api/user";
 import InfoUser from "../../components/User/InfoUser/InfoUser";
 import BannerAvatar from "../../components/User/BannerAvatar";
+import { getUserTweetApi } from "../../api/tweet";
 
 import "./User.scss";
 
 function User(props) {
   const { match } = props;
   const [user, setUser] = useState(null);
+  const [tweets, setTweets] = useState(null);
   const { params } = match;
   const loggedUser = useAuth();
 
@@ -26,6 +28,12 @@ function User(props) {
         toast.error("El usuario que has visitado no existe");
       });
   }, [params]);
+
+  useEffect(() => {
+    getUserTweetApi(params.id, 1).then((response) => {
+      setTweets(response);
+    });
+  }, []);
 
   return (
     <BasicLayout className="user">
