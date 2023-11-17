@@ -46,7 +46,10 @@ textarea {
 
 }
 .count {
-    margin:15px
+    margin:15px;
+    &.error {
+        color: $danger;
+    }
 }
 
 button {

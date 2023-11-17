@@ -17,7 +17,7 @@ import "./LeftMenu.scss";
 
 export default function LeftMenu(props) {
   const { setRefreshCheckLogin } = props;
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const user = useAuth();
 
   const logout = () => {
