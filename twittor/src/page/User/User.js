@@ -6,10 +6,12 @@ import useAuth from "../../hooks/useAuth";
 import BasicLayout from "../../layout/BasicLayout";
 import { getUserApi } from "../../api/user";
 import InfoUser from "../../components/User/InfoUser/InfoUser";
+import ListTweets from "../../components/ListTweets";
 import BannerAvatar from "../../components/User/BannerAvatar";
 import { getUserTweetApi } from "../../api/tweet";
 
 import "./User.scss";
+import { set } from "date-fns";
 
 function User(props) {
   const { match } = props;
@@ -30,10 +32,14 @@ function User(props) {
   }, [params]);
 
   useEffect(() => {
-    getUserTweetApi(params.id, 1).then((response) => {
-      setTweets(response);
-    });
-  }, []);
+    getUserTweetApi(params.id, 1)
+      .then((response) => {
+        setTweets(response);
+      })
+      .catch(() => {
+        setTweets([]);
+      });
+  }, [params]);
 
   return (
     <BasicLayout className="user">
@@ -47,7 +53,10 @@ function User(props) {
         <BannerAvatar user={user} loggedUser={loggedUser} />
       </div>
       <InfoUser user={user} />
-      <div className="user__tweets">Lista de Tweets</div>
+      <div className="user__tweets">
+        <h3>Tweets</h3>
+        {tweets && <ListTweets tweets={tweets} />}
+      </div>
     </BasicLayout>
   );
 }
