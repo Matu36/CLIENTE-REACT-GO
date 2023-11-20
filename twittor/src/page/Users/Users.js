@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Spinner, Button, ButtonGroup } from "react-bootstrap";
+import { getFollowsApi } from "../../api/follow";
 
 import BasicLayout from "../../layout/BasicLayout";
 
@@ -7,6 +8,18 @@ import "./Users.scss";
 
 export default function Users(props) {
   const { setRefreshCheckLogin } = props;
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    getFollowsApi("falta completar")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(() => {
+        setUsers([]);
+      });
+  }, []);
+
   return (
     <BasicLayout
       className="users"
