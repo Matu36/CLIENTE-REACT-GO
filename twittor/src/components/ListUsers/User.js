@@ -16,7 +16,7 @@ export default function User(props) {
   }, [user]);
 
   return (
-    <Media as={Link} to={`/${user.id}`} className="list-users__user">
+    <div as={Link} to={`/${user.id}`} className="list-users__user">
       <Image
         width={64}
         height={64}
@@ -30,12 +30,12 @@ export default function User(props) {
         alt={`${user.nombre} ${user.apellidos}`}
       />
 
-      <Media.Body>
+      <div>
         <h5>
           {user.nombre} {user.apellidos}
         </h5>
         <p>{userInfo?.biografia}</p>
-      </Media.Body>
-    </Media>
+      </div>
+    </div>
   );
 }
