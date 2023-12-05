@@ -18,7 +18,7 @@ export function Users(props) {
   const [btnLoading, setBtnLoading] = useState(false);
 
   // const [onSearch] = useDebouncedCallback((value) => {
-  //   setUsers(null);
+  //   // setUsers(null);
   //   history.push({
   //     search: queryString.stringify({ ...params, search: value, page: 1 }),
   //   });
