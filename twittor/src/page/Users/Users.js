@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Spinner, Button, ButtonGroup } from "react-bootstrap";
 import queryString from "query-string";
 import { isEmpty } from "lodash";
+import { useDebouncedCallback } from "use-debounce";
 import { withRouter } from "react-router-dom";
 import { getFollowsApi } from "../../api/follow";
 import BasicLayout from "../../layout/BasicLayout";
@@ -14,14 +15,31 @@ export function Users(props) {
   const [users, setUsers] = useState(null);
   const params = useUsersQuery(location);
   const [typeUser, setTypeUser] = useState(params.type || "follow");
+  const [btnLoading, setBtnLoading] = useState(false);
+
+  // const [onSearch] = useDebouncedCallback((value) => {
+  //   setUsers(null);
+  //   history.push({
+  //     search: queryString.stringify({ ...params, search: value, page: 1 }),
+  //   });
+  // }, 200);
 
   useEffect(() => {
     getFollowsApi(queryString.stringify(params))
       .then((response) => {
-        if (isEmpty(response)) {
-          setUsers([]);
+        if (params.page === 1) {
+          if (isEmpty(response)) {
+            setUsers([]);
+          } else {
+            setUsers(response);
+          }
         } else {
-          setUsers(response);
+          if (!response) {
+            setBtnLoading(0);
+          } else {
+            setUsers([...users, ...response]);
+            setBtnLoading(false);
+          }
         }
       })
       .catch(() => {
@@ -41,6 +59,14 @@ export function Users(props) {
     });
   };
 
+  const moreData = () => {
+    setBtnLoading(true);
+    const newPage = parseInt(params.page) + 1;
+    history.push({
+      search: queryString.stringify({ ...params, page: newPage }),
+    });
+  };
+
   return (
     <BasicLayout
       className="users"
@@ -49,7 +75,11 @@ export function Users(props) {
     >
       <div className="users__title">
         <h2>Users</h2>
-        <input type="text" placeholder="Busca un Usuario..." />
+        <input
+          type="text"
+          placeholder="Busca un Usuario..."
+          // onChange={(e) => onSearch(e.target.value)}
+        />
       </div>
       <ButtonGroup className="users__options">
         <Button
@@ -70,7 +100,22 @@ export function Users(props) {
           <Spinner animation="border" variant="info" />
         </div>
       ) : (
-        <ListUsers users={users} />
+        <>
+          <ListUsers users={users} />
+          <Button onClick={moreData} className="load-more">
+            {!btnLoading ? (
+              btnLoading !== 0 && "Cargas más usuarios"
+            ) : (
+              <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            )}
+          </Button>
+        </>
       )}
     </BasicLayout>
   );
