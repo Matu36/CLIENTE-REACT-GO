@@ -10,9 +10,10 @@ import ListUsers from "../../components/ListUsers/ListUsers";
 import "./Users.scss";
 
 export function Users(props) {
-  const { setRefreshCheckLogin, location } = props;
+  const { setRefreshCheckLogin, location, history } = props;
   const [users, setUsers] = useState(null);
   const params = useUsersQuery(location);
+  const [typeUser, setTypeUser] = useState(params.type || "follow");
 
   useEffect(() => {
     getFollowsApi(queryString.stringify(params))
@@ -26,7 +27,19 @@ export function Users(props) {
       .catch(() => {
         setUsers([]);
       });
-  }, []);
+  }, [location]);
+
+  const onChangeType = (type) => {
+    setUsers(null);
+    if (type === "new") {
+      setTypeUser("new");
+    } else {
+      setTypeUser("follow");
+    }
+    history.push({
+      search: queryString.stringify({ type: type, page: 1, search: "" }),
+    });
+  };
 
   return (
     <BasicLayout
@@ -39,8 +52,18 @@ export function Users(props) {
         <input type="text" placeholder="Busca un Usuario..." />
       </div>
       <ButtonGroup className="users__options">
-        <Button className="active">Siguiendo</Button>
-        <Button>Nuevos</Button>
+        <Button
+          onClick={() => onChangeType("follow")}
+          className={typeUser === "follow" && "active"}
+        >
+          Siguiendo
+        </Button>
+        <Button
+          onClick={() => onChangeType("new")}
+          className={typeUser === "new" && "active"}
+        >
+          Nuevos
+        </Button>
       </ButtonGroup>
       {!users ? (
         <div className="users__loading">
