@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BasicLayout from "../../layout/BasicLayout/BasicLayout";
+import ListTweets from "../../components/ListTweets";
 import { getTweetsFollowersAPI } from "../../api/tweet";
 
 import "./Home.scss";
@@ -11,7 +12,7 @@ export default function Home(props) {
 
   useEffect(() => {
     getTweetsFollowersAPI(page).then((response) => {
-      console.log(response);
+      setTweets(formatModel(response));
     });
   }, [page]);
 
@@ -21,8 +22,22 @@ export default function Home(props) {
         <h2> Inicio </h2>
       </div>
 
-      <p>Lista de Tweets</p>
-      <p>Cargar más tweets</p>
+      {tweets && <ListTweets tweets={tweets} />}
+      <p>Cargar más Tweets</p>
     </BasicLayout>
   );
+}
+
+function formatModel(tweets) {
+  const tweetsTemp = [];
+
+  tweets.forEach((tweet) => {
+    tweetsTemp.push({
+      _id: tweet._id,
+      userId: tweet.userRelationId,
+      mensaje: tweet.Tweet.mensaje,
+      fecha: tweet.Tweet.fecha,
+    });
+  });
+  return tweetsTemp;
 }
