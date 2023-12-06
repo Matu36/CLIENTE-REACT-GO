@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button, Spinner } from "react-bootstrap";
 import BasicLayout from "../../layout/BasicLayout/BasicLayout";
 import ListTweets from "../../components/ListTweets";
 import { getTweetsFollowersAPI } from "../../api/tweet";
@@ -9,12 +10,30 @@ export default function Home(props) {
   const { setRefreshCheckLogin } = props;
   const [tweets, setTweets] = useState(null);
   const [page, setPage] = useState(1);
+  const [loadingTweets, setLoadingTweets] = useState(false);
 
   useEffect(() => {
-    getTweetsFollowersAPI(page).then((response) => {
-      setTweets(formatModel(response));
-    });
+    getTweetsFollowersAPI(page)
+      .then((response) => {
+        if (!tweets && response) {
+          setTweets(formatModel(response));
+        } else {
+          if (!response) {
+            setLoadingTweets(0);
+          } else {
+            const data = formatModel(response);
+            setTweets([...tweets, ...data]);
+            setLoadingTweets(false);
+          }
+        }
+      })
+      .catch(() => {});
   }, [page]);
+
+  const moreData = () => {
+    setLoadingTweets(true);
+    setPage(page + 1);
+  };
 
   return (
     <BasicLayout className="home" setRefreshCheckLogin={setRefreshCheckLogin}>
@@ -23,7 +42,24 @@ export default function Home(props) {
       </div>
 
       {tweets && <ListTweets tweets={tweets} />}
-      <p>Cargar más Tweets</p>
+      {tweets && <ListTweets tweets={tweets} />}
+      <Button onClick={moreData} className="load-more">
+        {!loadingTweets ? (
+          loadingTweets !== 0 ? (
+            "Obtener más tweets"
+          ) : (
+            "No hay más tweets"
+          )
+        ) : (
+          <Spinner
+            as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+        )}
+      </Button>
     </BasicLayout>
   );
 }
