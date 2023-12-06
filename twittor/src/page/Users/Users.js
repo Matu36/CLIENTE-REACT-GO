@@ -17,12 +17,12 @@ export function Users(props) {
   const [typeUser, setTypeUser] = useState(params.type || "follow");
   const [btnLoading, setBtnLoading] = useState(false);
 
-  // const [onSearch] = useDebouncedCallback((value) => {
-  //   setUsers(null);
-  //   history.push({
-  //     search: queryString.stringify({ ...params, search: value, page: 1 }),
-  //   });
-  // }, 200);
+  const onSearch = useDebouncedCallback((value) => {
+    setUsers(null);
+    history.push({
+      search: queryString.stringify({ ...params, search: value, page: 1 }),
+    });
+  }, 200);
 
   useEffect(() => {
     getFollowsApi(queryString.stringify(params))
@@ -78,7 +78,7 @@ export function Users(props) {
         <input
           type="text"
           placeholder="Busca un Usuario..."
-          // onChange={(e) => onSearch(e.target.value)}
+          onChange={(e) => onSearch(e.target.value)}
         />
       </div>
       <ButtonGroup className="users__options">
