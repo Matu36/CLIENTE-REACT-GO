@@ -21,6 +21,14 @@
 
     }
 
+    input {
+        font-size: 16px;
+    
+        &::placeholder {
+          color: $font-light !important;
+        }
+      }
+
     .avatar {
 
         position: relative;

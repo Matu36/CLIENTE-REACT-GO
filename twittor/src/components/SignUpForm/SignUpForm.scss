@@ -16,6 +16,14 @@ padding-bottom: 30px;
     
 }
 
+input {
+    font-size: 16px;
+
+    &::placeholder {
+      color: $font-light !important;
+    }
+  }
+
 button {
     width: 100%;
     font-size: 20px;
