@@ -104,7 +104,7 @@ export function Users(props) {
           <ListUsers users={users} />
           <Button onClick={moreData} className="load-more">
             {!btnLoading ? (
-              btnLoading !== 0 && "Cargas más usuarios"
+              btnLoading !== 0 && "Cargar más usuarios"
             ) : (
               <Spinner
                 as="span"

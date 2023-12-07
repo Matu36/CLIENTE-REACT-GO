@@ -47,8 +47,10 @@ function User(props) {
     const pageTemp = page + 1;
     setLoadingTweets(true);
 
+    //REVISAR LO DE ABAJO!
+
     getUserTweetApi(params.id, pageTemp).then((response) => {
-      if (!response) {
+      if (!tweets && response) {
         setLoadingTweets(0);
       } else {
         setTweets([...tweets, ...response]);

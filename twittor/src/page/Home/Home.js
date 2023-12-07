@@ -37,19 +37,13 @@ export default function Home(props) {
 
   return (
     <BasicLayout className="home" setRefreshCheckLogin={setRefreshCheckLogin}>
-      <div className="tome__title">
-        <h2> Inicio </h2>
-      </div>
+      <div className="tome__title">{/* <h2> Inicio </h2> */}</div>
 
       {tweets && <ListTweets tweets={tweets} />}
       {tweets && <ListTweets tweets={tweets} />}
       <Button onClick={moreData} className="load-more">
         {!loadingTweets ? (
-          loadingTweets !== 0 ? (
-            "Obtener más tweets"
-          ) : (
-            "No hay más tweets"
-          )
+          loadingTweets !== 0 && "Obtener más tweets"
         ) : (
           <Spinner
             as="span"
