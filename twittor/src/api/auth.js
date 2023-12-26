@@ -14,7 +14,7 @@ export function signUpApi(user) {
   const params = {
     method: "POST",
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(userTemp),
   };
