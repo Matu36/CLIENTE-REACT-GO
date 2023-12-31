@@ -27,6 +27,7 @@ export function signUpApi(user) {
       return { code: 404, message: "Email en Uso" };
     })
     .then((result) => {
+      console.log(result);
       return result;
     })
     .catch((err) => {
@@ -58,6 +59,7 @@ export function signInApi(user) {
       return result;
     })
     .catch((err) => {
+      console.error("Error en la solicitud:", err);
       return err;
     });
 }
