@@ -1,4 +1,4 @@
 export const API_HOST =
-  "https://0411vp4o94.execute-api.us-east-1.amazonaws.com/dev";
+  "https://tjq2xvf44l.execute-api.us-east-1.amazonaws.com/prod";
 
 export const TOKEN = "token";

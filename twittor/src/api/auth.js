@@ -59,7 +59,6 @@ export function signInApi(user) {
       return result;
     })
     .catch((err) => {
-      console.error("Error en la solicitud:", err);
       return err;
     });
 }
